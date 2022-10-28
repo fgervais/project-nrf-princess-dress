@@ -1,0 +1,6 @@
+target_override: nrf52840
+#connect_mode: under-reset
+#reset_type: hw
+#reset.hold_time: 0.1
+# frequency: 100000
+# dap_swj_enable: False

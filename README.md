@@ -33,10 +33,17 @@ rm -rf build/
 
 ## Flash
 
+### nrfjprog
 ```bash
 cd application
 docker-compose -f docker-compose.yml -f docker-compose.device.yml \
         run nrf west flash
+```
+
+### pyocd
+```bash
+cd application
+pyocd flash -e sector -t nrf52840 -f 4000000 build/zephyr/zephyr.hex
 ```
 
 # Hardware

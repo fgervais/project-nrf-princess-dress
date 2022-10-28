@@ -1,6 +1,10 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 
+#include <zephyr/logging/log.h>
+LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
+
+
 /* 1000 msec = 1 sec */
 #define SLEEP_TIME_MS   1000
 
@@ -27,6 +31,10 @@ void main(void)
 	}
 
 	while (1) {
+		LOG_INF("****************************************");
+		LOG_INF("LOOP");
+		LOG_INF("****************************************");
+		printk("Toggle\n");
 		ret = gpio_pin_toggle_dt(&led);
 		if (ret < 0) {
 			return;

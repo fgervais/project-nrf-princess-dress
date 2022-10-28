@@ -2,4 +2,5 @@ version: '3'
 services:
   nrf:
     devices:
-      - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/ttyACM2:/dev/ttyACM2
+      - /dev/bus/usb:/dev/bus/usb

@@ -13,6 +13,15 @@
 	chosen {
 		zephyr,entropy = &rng;
 	};
+	aliases {
+		myled0alias = &myled0;
+	};
+	leds {
+		compatible = "gpio-leds";
+		myled0: led_0 {
+			gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+		};
+	};
 };
 &adc {
 	status = "disabled";
@@ -44,6 +53,6 @@
 &usbd {
 	status = "disabled";
 };
-&gpio1 {
-	status = "disabled";
-};
+// &gpio1 {
+// 	status = "disabled";
+// };

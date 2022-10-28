@@ -16,6 +16,6 @@ target_include_directories(app PRIVATE ${CMAKE_BINARY_DIR}/app/include src)
 
 target_sources(app PRIVATE src/main.c)
 
-zephyr_include_directories(
-  configuration/${BOARD}
-  )
+# zephyr_include_directories(
+#   configuration/${BOARD}
+#   )

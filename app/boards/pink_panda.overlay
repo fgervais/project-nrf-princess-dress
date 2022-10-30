@@ -19,7 +19,7 @@
 	leds {
 		compatible = "gpio-leds";
 		myled0: led_0 {
-			gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio0 25 GPIO_ACTIVE_LOW>;
 		};
 	};
 };
@@ -53,6 +53,6 @@
 &usbd {
 	status = "disabled";
 };
-// &gpio1 {
-// 	status = "disabled";
-// };
+&gpio1 {
+	status = "disabled";
+};

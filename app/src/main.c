@@ -60,9 +60,6 @@ static bool event_handler(const struct app_event_header *eh)
 		if (evt->pressed) {
 			LOG_INF("Pin Toggle");
 			ret = gpio_pin_toggle_dt(&led);
-			if (ret < 0) {
-				return;
-			}
 		}
 	}
 
@@ -270,7 +267,7 @@ APP_EVENT_SUBSCRIBE(MODULE, button_event);
 
 // #define RC_STR(rc) ((rc) == 0 ? "OK" : "ERROR")
 
-// #define PRINT_RESULT(func, rc) \
+// #define PRINT_RESULT(func, rc)
 // 	LOG_INF("%s: %d <%s>", (func), rc, RC_STR(rc))
 
 // static void broker_init(void)

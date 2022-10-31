@@ -138,7 +138,7 @@
 	ism330dhcx_dev: ism330dhcx@6b {
 		compatible = "st,ism330dhcx";
 		reg = <0x6b>;
-		drdy-gpios =  <&gpio0 11 GPIO_ACTIVE_HIGH>; /* D5 - INT2 */
+		drdy-gpios =  <&gpio0 22 GPIO_ACTIVE_HIGH>;
 		int-pin = <1>;
 	};
 };

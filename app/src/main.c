@@ -20,7 +20,6 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
 
-#ifdef CONFIG_ISM330DHCX_TRIGGER
 static int ism330dhcx_acc_trig_cnt;
 static int ism330dhcx_gyr_trig_cnt;
 
@@ -37,7 +36,6 @@ static void ism330dhcx_gyr_trigger_handler(const struct device *dev,
 	sensor_sample_fetch_chan(dev, SENSOR_CHAN_GYRO_XYZ);
 	ism330dhcx_gyr_trig_cnt++;
 }
-#endif
 
 static void ism330dhcx_config(const struct device *ism330dhcx)
 {
@@ -79,7 +77,7 @@ static void ism330dhcx_config(const struct device *ism330dhcx)
 		return;
 	}
 
-#ifdef CONFIG_ISM330DHCX_TRIGGER
+
 	struct sensor_trigger trig;
 
 	trig.type = SENSOR_TRIG_DATA_READY;
@@ -89,7 +87,6 @@ static void ism330dhcx_config(const struct device *ism330dhcx)
 	trig.type = SENSOR_TRIG_DATA_READY;
 	trig.chan = SENSOR_CHAN_GYRO_XYZ;
 	sensor_trigger_set(ism330dhcx, &trig, ism330dhcx_gyr_trigger_handler);
-#endif
 }
 
 
@@ -143,10 +140,8 @@ void main(void)
 			sensor_value_to_double(&gyro[1]),
 			sensor_value_to_double(&gyro[2]));
 
-#ifdef CONFIG_ISM330DHCX_TRIGGER
 		printk("%d:: ism330dhcx acc trig %d\n", cnt, ism330dhcx_acc_trig_cnt);
 		printk("%d:: ism330dhcx gyr trig %d\n", cnt, ism330dhcx_gyr_trig_cnt);
-#endif
 
 		cnt++;
 		k_sleep(K_MSEC(2000));

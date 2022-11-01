@@ -102,7 +102,7 @@ void main(void)
 
 	struct sensor_value accel1[3];
 	struct sensor_value gyro[3];
-	int cnt;
+	int cnt = 0;
 
 	if (app_event_manager_init()) {
 		LOG_ERR("Event manager not initialized");

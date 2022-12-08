@@ -47,7 +47,7 @@ static void ism330dhcx_config(const struct device *ism330dhcx)
 
 	if (sensor_attr_set(ism330dhcx, SENSOR_CHAN_ACCEL_XYZ,
 			    SENSOR_ATTR_SAMPLING_FREQUENCY, &odr_attr) < 0) {
-		LOG_ERR("Cannot set sampling frequency for ISM330DHCX accel\n");
+		LOG_ERR("Cannot set sampling frequency for ISM330DHCX accel");
 		return;
 	}
 
@@ -55,7 +55,7 @@ static void ism330dhcx_config(const struct device *ism330dhcx)
 
 	if (sensor_attr_set(ism330dhcx, SENSOR_CHAN_ACCEL_XYZ,
 			    SENSOR_ATTR_FULL_SCALE, &fs_attr) < 0) {
-		LOG_ERR("Cannot set sampling frequency for ISM330DHCX accel\n");
+		LOG_ERR("Cannot set sampling frequency for ISM330DHCX accel");
 		return;
 	}
 
@@ -65,7 +65,7 @@ static void ism330dhcx_config(const struct device *ism330dhcx)
 
 	if (sensor_attr_set(ism330dhcx, SENSOR_CHAN_GYRO_XYZ,
 			    SENSOR_ATTR_SAMPLING_FREQUENCY, &odr_attr) < 0) {
-		LOG_ERR("Cannot set sampling frequency for ISM330DHCX gyro\n");
+		LOG_ERR("Cannot set sampling frequency for ISM330DHCX gyro");
 		return;
 	}
 
@@ -73,7 +73,7 @@ static void ism330dhcx_config(const struct device *ism330dhcx)
 
 	if (sensor_attr_set(ism330dhcx, SENSOR_CHAN_GYRO_XYZ,
 			    SENSOR_ATTR_FULL_SCALE, &fs_attr) < 0) {
-		LOG_ERR("Cannot set fs for ISM330DHCX gyro\n");
+		LOG_ERR("Cannot set fs for ISM330DHCX gyro");
 		return;
 	}
 
@@ -117,7 +117,7 @@ void main(void)
 	}
 
 	if (!device_is_ready(ism330dhcx)) {
-		printk("%s: device not ready.\n", ism330dhcx->name);
+		LOG_ERR("%s: device not ready.", ism330dhcx->name);
 		return;
 	}
 
@@ -128,20 +128,20 @@ void main(void)
 		sensor_channel_get(ism330dhcx, SENSOR_CHAN_GYRO_XYZ, gyro);
 
 		/* Erase previous */
-		printf("\0033\014");
+		// LOG_INF("\0033\014");
 
-		printf("ISM330DHCX: Accel (m.s-2): x: %.3f, y: %.3f, z: %.3f\n",
+		LOG_INF("ISM330DHCX: Accel (m.s-2): x: %.3f, y: %.3f, z: %.3f",
 			sensor_value_to_double(&accel1[0]),
 			sensor_value_to_double(&accel1[1]),
 			sensor_value_to_double(&accel1[2]));
 
-		printf("ISM330DHCX: GYro (dps): x: %.3f, y: %.3f, z: %.3f\n",
+		LOG_INF("ISM330DHCX: GYro (dps): x: %.3f, y: %.3f, z: %.3f",
 			sensor_value_to_double(&gyro[0]),
 			sensor_value_to_double(&gyro[1]),
 			sensor_value_to_double(&gyro[2]));
 
-		printk("%d:: ism330dhcx acc trig %d\n", cnt, ism330dhcx_acc_trig_cnt);
-		printk("%d:: ism330dhcx gyr trig %d\n", cnt, ism330dhcx_gyr_trig_cnt);
+		LOG_INF("%d:: ism330dhcx acc trig %d", cnt, ism330dhcx_acc_trig_cnt);
+		LOG_INF("%d:: ism330dhcx gyr trig %d", cnt, ism330dhcx_gyr_trig_cnt);
 
 		cnt++;
 		k_sleep(K_MSEC(2000));

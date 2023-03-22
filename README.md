@@ -14,14 +14,14 @@ west update
 
 ```bash
 cd application
-docker-compose run nrf west build -b pink_panda -s app
+docker compose run nrf west build -b pink_panda -s app
 ```
 
 ## menuconfig
 
 ```bash
 cd application
-docker-compose run nrf west build -b pink_panda -s app -t menuconfig
+docker compose run nrf west build -b pink_panda -s app -t menuconfig
 ```
 
 ## Clean
@@ -36,7 +36,7 @@ rm -rf build/
 ### nrfjprog
 ```bash
 cd application
-docker-compose -f docker-compose.yml -f docker-compose.device.yml \
+docker compose -f docker-compose.yml -f docker-compose.device.yml \
         run nrf west flash
 ```
 

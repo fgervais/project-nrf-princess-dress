@@ -15,6 +15,7 @@
 	};
 	aliases {
 		myled0alias = &myled0;
+		led-strip-0 = &led_strip_0;
 	};
 	leds {
 		compatible = "gpio-leds";
@@ -158,7 +159,7 @@
 	status = "disabled";
 };
 &spi1 {
-	apa102@0 {
+	led_strip_0: apa102@0 {
 		compatible = "apa,apa102";
 		reg = <0>;
 		spi-max-frequency = <5250000>;

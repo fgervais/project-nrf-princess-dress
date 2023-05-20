@@ -127,8 +127,9 @@ void main(void)
 	const struct device *const cons = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
 	const struct device *const ism330dhcx = DEVICE_DT_GET_ONE(st_ism330dhcx);
 
-	// const struct device *strip = DEVICE_DT_GET_ANY(apa_apa102);
-	const struct device *strip0 =  DEVICE_DT_GET(DT_ALIAS(led_strip_0));
+	const struct device *strip0 = DEVICE_DT_GET(DT_ALIAS(led_strip_0));
+	const struct device *strip1 = DEVICE_DT_GET(DT_NODELABEL(led_strip_1));
+	const struct device *strip2 = DEVICE_DT_GET(DT_NODELABEL(led_strip_2));
 
 	struct sensor_value accel1[3];
 	struct sensor_value gyro[3];
@@ -173,6 +174,26 @@ void main(void)
 		LOG_INF("Found LED strip device %s", strip0->name);
 	}
 
+	if (!strip1) {
+		LOG_ERR("LED strip device not found");
+		return;
+	} else if (!device_is_ready(strip1)) {
+		LOG_ERR("LED strip device %s is not ready", strip1->name);
+		return;
+	} else {
+		LOG_INF("Found LED strip device %s", strip1->name);
+	}
+
+	if (!strip2) {
+		LOG_ERR("LED strip device not found");
+		return;
+	} else if (!device_is_ready(strip2)) {
+		LOG_ERR("LED strip device %s is not ready", strip2->name);
+		return;
+	} else {
+		LOG_INF("Found LED strip device %s", strip2->name);
+	}
+
 
 	LOG_INF("Displaying pattern on strip");
 	time = 0;
@@ -182,6 +203,8 @@ void main(void)
 			       sizeof(strip_colors[i]));
 		}
 		led_strip_update_rgb(strip0, strip_colors, STRIP_NUM_LEDS);
+		led_strip_update_rgb(strip1, strip_colors, STRIP_NUM_LEDS);
+		led_strip_update_rgb(strip2, strip_colors, STRIP_NUM_LEDS);
 		k_sleep(DELAY_TIME);
 		time++;
 	}

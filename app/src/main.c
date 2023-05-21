@@ -16,13 +16,9 @@
 LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 
 
-#define LED0_NODE DT_ALIAS(myled0alias)
-
 #define STRIP_NUM_LEDS 20
 
 #define DELAY_TIME K_MSEC(40)
-
-static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
 static const struct led_rgb colors[] = {
 	{ .r = 0xff, .g = 0x00, .b = 0x00, }, /* red */
@@ -122,8 +118,6 @@ const struct led_rgb *color_at(size_t time, size_t i)
 
 void main(void)
 {
-	int ret;
-	
 	const struct device *const cons = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
 	const struct device *const ism330dhcx = DEVICE_DT_GET_ONE(st_ism330dhcx);
 
@@ -146,15 +140,6 @@ void main(void)
 		LOG_ERR("Event manager not initialized");
 	} else {
 		module_set_state(MODULE_STATE_READY);
-	}
-
-	if (!device_is_ready(led.port)) {
-		return;
-	}
-
-	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
-	if (ret < 0) {
-		return;
 	}
 
 	// if (!device_is_ready(ism330dhcx)) {
@@ -252,15 +237,13 @@ void main(void)
 
 static bool event_handler(const struct app_event_header *eh)
 {
-	int ret;
 	const struct button_event *evt;
 
 	if (is_button_event(eh)) {
 		evt = cast_button_event(eh);
 
 		if (evt->pressed) {
-			LOG_INF("Pin Toggle");
-			ret = gpio_pin_toggle_dt(&led);
+			LOG_INF("PRESSED");
 		}
 	}
 

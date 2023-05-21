@@ -31,6 +31,13 @@ cd application
 rm -rf build/
 ```
 
+## Update
+
+```bash
+cd application
+docker compose run --rm nrf west update
+```
+
 ## Flash
 
 ### nrfjprog

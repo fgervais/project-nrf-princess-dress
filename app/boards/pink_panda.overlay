@@ -89,7 +89,6 @@
 	};
 };
 &spi1 {
-	compatible = "nordic,nrf-spi";
 	status = "okay";
 	pinctrl-0 = <&spi1_default>;
 	pinctrl-1 = <&spi1_sleep>;
@@ -102,7 +101,6 @@
 	};
 };
 &spi2 {
-	compatible = "nordic,nrf-spi";
 	status = "okay";
 	pinctrl-0 = <&spi2_default>;
 	pinctrl-1 = <&spi2_sleep>;
@@ -115,7 +113,6 @@
 	};
 };
 &spi3 {
-	// compatible = "nordic,nrf-spi";
 	status = "okay";
 	pinctrl-0 = <&spi3_default>;
 	pinctrl-1 = <&spi3_sleep>;

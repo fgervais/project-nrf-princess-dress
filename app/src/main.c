@@ -32,7 +32,9 @@ static const struct led_rgb black = {
 	.b = 0x00,
 };
 
-struct led_rgb strip_colors[STRIP_NUM_LEDS];
+struct led_rgb strip0_colors[STRIP_NUM_LEDS];
+struct led_rgb strip1_colors[STRIP_NUM_LEDS];
+struct led_rgb strip2_colors[STRIP_NUM_LEDS];
 
 static int ism330dhcx_acc_trig_cnt;
 static int ism330dhcx_gyr_trig_cnt;
@@ -181,17 +183,21 @@ void main(void)
 
 
 	LOG_INF("Displaying pattern on strip");
-	time = 0;
+	// time = 0;
+	strip0_colors[0] = colors[0];
 	while (1) {
-		for (i = 0; i < STRIP_NUM_LEDS; i++) {
-			memcpy(&strip_colors[i], color_at(time, i),
-			       sizeof(strip_colors[i]));
-		}
-		led_strip_update_rgb(strip0, strip_colors, STRIP_NUM_LEDS);
-		led_strip_update_rgb(strip1, strip_colors, STRIP_NUM_LEDS);
-		led_strip_update_rgb(strip2, strip_colors, STRIP_NUM_LEDS);
+		memcpy(&strip0_colors[0], &colors[0], sizeof(strip0_colors[0]));
+		memcpy(&strip1_colors[1], &colors[0], sizeof(strip1_colors[1]));
+		memcpy(&strip2_colors[2], &colors[0], sizeof(strip2_colors[2]));
+		// for (i = 0; i < STRIP_NUM_LEDS; i++) {
+		// 	memcpy(&strip_colors[i], color_at(time, i),
+		// 	       sizeof(strip_colors[i]));
+		// }
+		led_strip_update_rgb(strip0, strip0_colors, STRIP_NUM_LEDS);
+		led_strip_update_rgb(strip1, strip1_colors, STRIP_NUM_LEDS);
+		led_strip_update_rgb(strip2, strip2_colors, STRIP_NUM_LEDS);
 		k_sleep(DELAY_TIME);
-		time++;
+		// time++;
 	}
 
 

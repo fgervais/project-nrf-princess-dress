@@ -105,18 +105,6 @@ static void ism330dhcx_config(const struct device *ism330dhcx)
 	sensor_trigger_set(ism330dhcx, &trig, ism330dhcx_gyr_trigger_handler);
 }
 
-const struct led_rgb *color_at(size_t time, size_t i)
-{
-	size_t rgb_start = time % STRIP_NUM_LEDS;
-
-	if (rgb_start <= i && i < rgb_start + ARRAY_SIZE(colors)) {
-		return &colors[i - rgb_start];
-	} else {
-		return &black;
-	}
-}
-
-
 
 void main(void)
 {
@@ -130,13 +118,6 @@ void main(void)
 	struct sensor_value accel1[3];
 	struct sensor_value gyro[3];
 	int cnt = 0;
-
-	size_t i, time;
-
-	// while (1) {
-	// 	// LOG_INF("MAIN DONE");
-	// 	k_sleep(K_SECONDS(1));
-	// }
 
 	if (app_event_manager_init()) {
 		LOG_ERR("Event manager not initialized");
@@ -183,29 +164,16 @@ void main(void)
 
 
 	LOG_INF("Displaying pattern on strip");
-	// time = 0;
-	strip0_colors[0] = colors[0];
 	while (1) {
 		memcpy(&strip0_colors[0], &colors[0], sizeof(strip0_colors[0]));
 		memcpy(&strip1_colors[1], &colors[0], sizeof(strip1_colors[1]));
 		memcpy(&strip2_colors[2], &colors[0], sizeof(strip2_colors[2]));
-		// for (i = 0; i < STRIP_NUM_LEDS; i++) {
-		// 	memcpy(&strip_colors[i], color_at(time, i),
-		// 	       sizeof(strip_colors[i]));
-		// }
+
 		led_strip_update_rgb(strip0, strip0_colors, STRIP_NUM_LEDS);
 		led_strip_update_rgb(strip1, strip1_colors, STRIP_NUM_LEDS);
 		led_strip_update_rgb(strip2, strip2_colors, STRIP_NUM_LEDS);
 		k_sleep(DELAY_TIME);
-		// time++;
 	}
-
-
-	// while (1) {
-	// 	LOG_INF("MAIN DONE");
-	// 	k_sleep(K_SECONDS(1));
-	// }
-
 
 	while (1) {
 		sensor_channel_get(ism330dhcx, SENSOR_CHAN_ACCEL_XYZ, accel1);

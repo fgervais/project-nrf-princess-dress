@@ -125,12 +125,12 @@ void main(void)
 		module_set_state(MODULE_STATE_READY);
 	}
 
-	// if (!device_is_ready(ism330dhcx)) {
-	// 	LOG_ERR("%s: device not ready.", ism330dhcx->name);
-	// 	return;
-	// }
+	if (!device_is_ready(ism330dhcx)) {
+		LOG_ERR("%s: device not ready.", ism330dhcx->name);
+		return;
+	}
 
-	// ism330dhcx_config(ism330dhcx);
+	ism330dhcx_config(ism330dhcx);
 
 	if (!strip0) {
 		LOG_ERR("LED strip device not found");
@@ -172,10 +172,8 @@ void main(void)
 		led_strip_update_rgb(strip0, strip0_colors, STRIP_NUM_LEDS);
 		led_strip_update_rgb(strip1, strip1_colors, STRIP_NUM_LEDS);
 		led_strip_update_rgb(strip2, strip2_colors, STRIP_NUM_LEDS);
-		k_sleep(DELAY_TIME);
-	}
+		// k_sleep(DELAY_TIME);
 
-	while (1) {
 		sensor_channel_get(ism330dhcx, SENSOR_CHAN_ACCEL_XYZ, accel1);
 		sensor_channel_get(ism330dhcx, SENSOR_CHAN_GYRO_XYZ, gyro);
 
